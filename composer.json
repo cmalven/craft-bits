@@ -1,0 +1,40 @@
+{
+    "name": "malven/craft-bits",
+    "description": "A collection of simple, reusable components for use in your Craft Twig templates.",
+    "type": "craft-plugin",
+    "version": "1.0.0",
+    "keywords": [
+        "craft",
+        "cms",
+        "craftcms",
+        "craft-plugin",
+        "bits"
+    ],
+    "support": {
+        "docs": "https://github.com/cmalven/craft-bits/blob/master/README.md",
+        "issues": "https://github.com/cmalven/craft-bits/issues"
+    },
+    "license": "MIT",
+    "authors": [
+        {
+            "name": "Chris Malven",
+            "homepage": "https://malven.co"
+        }
+    ],
+    "require": {
+        "craftcms/cms": "^3.0.0-RC1"
+    },
+    "autoload": {
+        "psr-4": {
+          "malven\\bits\\": "src/"
+        }
+    },
+    "extra": {
+        "name": "Bits",
+        "handle": "bits",
+        "hasCpSettings": false,
+        "hasCpSection": false,
+        "changelogUrl": "https://raw.githubusercontent.com/cmalven/craft-bits/master/CHANGELOG.md",
+        "class": "malven\\bits\\Bits"
+    }
+}
