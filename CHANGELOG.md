@@ -7,3 +7,7 @@ The format is based on [Keep a Changelog](http://keepachangelog.com/) and this p
 ## 1.0.0 - 2018-12-26
 ### Added
 - Initial release
+
+## 1.0.1 - 2018-12-26
+### Changed
+- Updated `composer install` instructions.
