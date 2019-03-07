@@ -70,6 +70,7 @@ class BitsTwigExtension extends \Twig_Extension
             new \Twig_SimpleFunction('text', [$this, 'renderText']),
             new \Twig_SimpleFunction('textarea', [$this, 'renderTextarea']),
             new \Twig_SimpleFunction('selectable', [$this, 'renderSelectable']),
+            new \Twig_SimpleFunction('validateClasses', [$this, 'renderValidateClasses']),
         ];
     }
 
@@ -84,7 +85,7 @@ class BitsTwigExtension extends \Twig_Extension
      */
     public function renderText($options = [])
     {
-        return $this->renderTemplate('text', $options);
+        return $this->renderTemplate('text', [$options]);
     }
 
     /**
@@ -98,7 +99,7 @@ class BitsTwigExtension extends \Twig_Extension
      */
     public function renderTextarea($options = [])
     {
-        return $this->renderTemplate('textarea', $options);
+        return $this->renderTemplate('textarea', [$options]);
     }
 
     /**
@@ -112,15 +113,34 @@ class BitsTwigExtension extends \Twig_Extension
      */
     public function renderSelectable($options = [])
     {
-        return $this->renderTemplate('selectable', $options);
+        return $this->renderTemplate('selectable', [$options]);
+    }
+
+    /**
+     * Validates that the given array of classes doesn't contain any
+     * conflicting classes.
+     *
+     * See `/templates/macros.twig` for usage.
+     *
+     * @param    string  $classList       Space-separated list of classes to be assigned
+     * @param    array   $allowedClasses  The allowed class combinations
+     *
+     * @return   string
+     */
+    public function renderValidateClasses($classList, $allowedClasses = [])
+    {
+        return $this->renderTemplate('validateClasses', [
+            'classList' => $classList,
+            'allowedClasses' => $allowedClasses
+        ]);
     }
 
     public function renderTemplate($macro, $options = [])
     {
-      $oldMode = \Craft::$app->view->getTemplateMode();
-      \Craft::$app->view->setTemplateMode(View::TEMPLATE_MODE_CP);
-      $html = \Craft::$app->view->renderTemplateMacro('bits/macros', $macro, [$options]);
-      \Craft::$app->view->setTemplateMode($oldMode);
-      return Template::raw($html);
+        $oldMode = \Craft::$app->view->getTemplateMode();
+        \Craft::$app->view->setTemplateMode(View::TEMPLATE_MODE_CP);
+        $html = \Craft::$app->view->renderTemplateMacro('bits/macros', $macro, $options);
+        \Craft::$app->view->setTemplateMode($oldMode);
+        return Template::raw($html);
     }
 }

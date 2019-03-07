@@ -226,3 +226,77 @@
 </div>
 
 {%- endmacro %}
+
+
+{# ------------------------------------------------------------------ #}
+{# Validate Classes
+{# ------------------------------------------------------------------ #}
+{#
+  {{ validateClasses('foo--alpha foo--beta foo--gamma', [
+    [
+      'foo--alpha',
+      'foo--beta',
+    ],
+    [
+      'foo--gamma',
+    ]
+  ]) }}
+
+  Validates that the given array of classes doesn't contain any
+  conflicting classes.
+
+  For each array group in the `allowedClasses` array, only one class
+  from that group can be applied. In the example above, both `foo--alpha`
+  and `foo--beta` are in the same group, so they can not be combined
+  on the same element.
+
+  @param classList (String)       - [required] List of space-separated classes
+  @param allowedClasses (Array)   - [required] Groups of allowed classes
+#}
+
+{%- macro validateClasses(classList = '', allowedClasses = []) -%}
+  {% if craft.app.config.general.devMode %}
+
+    {# Ensure classes are only separated by a single space #}
+    {% set classList = classList | replace('/  */', ' ') %}
+
+    {# Get an array of classes from a string #}
+    {% set classList = classList | split(' ') %}
+
+    {# After each error we find, we'll store that error combination so we don't log it again #}
+    {% set resolvedCombinations = [] %}
+
+    {% for classGroup in allowedClasses %}
+      {% for class in classList %}
+        {# Is the assigned class in the class group? #}
+        {% if class in classGroup %}
+          {% for groupClass in classGroup %}
+            {# Is another class in the same group being applied? #}
+            {% if groupClass != class %}
+              {# Have we already reported this combination as an error? #}
+              {% set doesCombinationExist = false %}
+              {% for combination in resolvedCombinations %}
+                {% if class in combination and groupClass in combination %}
+                  {% set doesCombinationExist = true %}
+                {% endif %}
+              {% endfor %}
+              {% if not doesCombinationExist %}
+                {# Log the error #}
+                <script>
+                  console.error('The following CSS classes cannot be combined on this element: "{{ class }}" and "{{ groupClass }}"');
+                </script>
+
+                {# Store that we have logged this combination #}
+                {% set resolvedCombinations = resolvedCombinations | merge([[
+                  class,
+                  groupClass
+                ]]) %}
+              {% endif %}
+            {% endif %}
+          {% endfor %}
+        {% endif %}
+      {% endfor %}
+    {% endfor %}
+
+  {% endif %}
+{%- endmacro -%}

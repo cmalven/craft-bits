@@ -99,6 +99,41 @@ A `selectable` renders either a `checkbox` or `radio` element, depending on the 
 }) }}
 ```
 
+## Utilies
+
+### Validate Classes
+
+When building complex sites using [BEM]() syntax for modifier classes (e.g. `foo--large`) it can be helpful to define which modifiers can be used together and which must be exclusive.
+
+The `validateClasses` utility makes this easy by allowing you to define a simple array of exclusive class groups. Only one class in each group is allowed to be applied, otherwise a console error will be thrown. Console errors only display when `craft.app.config.general.devMode` is enabled for performance reasons.
+
+```twig
+{# In any Twig template… #}
+
+{% include '_partials/foo' with {
+  classes: 'foo--alpha foo--beta foo--gamma'
+} only %}
+
+
+{# In templates/_partials/foo.twig #}
+
+{{ validateClasses(classes, [
+  [
+    'foo--alpha',
+    'foo--beta',
+  ],
+  [
+    'foo--gamma',
+  ]
+])}}
+
+<div class="foo {{ classes ?? '' }}">
+    …
+</div>
+```
+
+In the above example, you'll see the console error `The following CSS classes cannot be combined on this element: "foo--alpha" and "foo--beta"` because those two classes are in the same group.
+
 ## Customization
 
 If you want to use Bits components directly as described in the examples above, that’s just fine. However, you may find it valuable to create your own custom components that provide a thin layer of abstraction over Bits, making them more plug-and-play for your project.

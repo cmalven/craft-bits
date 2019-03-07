@@ -2,7 +2,7 @@
     "name": "malven/craft-bits",
     "description": "A collection of simple, reusable components for use in your Craft Twig templates.",
     "type": "craft-plugin",
-    "version": "1.0.1",
+    "version": "1.2.0",
     "keywords": [
         "craft",
         "cms",
