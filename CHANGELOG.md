@@ -20,3 +20,7 @@ The format is based on [Keep a Changelog](http://keepachangelog.com/) and this p
 ### Fixed
 - Fixed issue with `validateClasses` comparing against classes that aren't being used.
 
+## 1.1.2 - 2019-03-07
+### Added
+- `validateClasses` now shows a small graphical indication of invalid classes on affected element.
+
