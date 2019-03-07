@@ -15,3 +15,8 @@ The format is based on [Keep a Changelog](http://keepachangelog.com/) and this p
 ## 1.1.0 - 2019-03-07
 ### Added
 - Added `validateClasses()` Twig function for preventing CSS class collisions.
+
+## 1.1.1 - 2019-03-07
+### Fixed
+- Fixed issue with `validateClasses` comparing against classes that aren't being used.
+

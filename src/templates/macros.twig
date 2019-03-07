@@ -272,7 +272,7 @@
         {% if class in classGroup %}
           {% for groupClass in classGroup %}
             {# Is another class in the same group being applied? #}
-            {% if groupClass != class %}
+            {% if groupClass in classList and groupClass != class %}
               {# Have we already reported this combination as an error? #}
               {% set doesCombinationExist = false %}
               {% for combination in resolvedCombinations %}
