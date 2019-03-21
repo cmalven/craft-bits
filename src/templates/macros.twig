@@ -60,14 +60,14 @@
 >
   {% if options.showLabel%}
     <label
-      class="{{ options.mainClass }}__{{ options.labelSuffixClass }}"
+      class="{{ options.mainClass }}{{ options.labelSuffixClass }}"
       for="{{ options.name }}">
         {{ options.label }}
     </label>
   {% endif %}
 
   <{{ el }}
-    class="{{ options.mainClass }}__{{ options.inputSuffixClass }}"
+    class="{{ options.mainClass }}{{ options.inputSuffixClass }}"
     name="{{ options.name }}"
     id="{{ options.name }}"
     {% if not isTextarea %}
@@ -87,7 +87,7 @@
   >{% if isTextarea %}{{ options.value ?? '' }}</{{ el }}>{% endif %}
 
   {% if options.errors | length %}
-    <div class="{{ options.mainClass }}__{{ options.errorsSuffixClass }}">
+    <div class="{{ options.mainClass }}{{ options.errorsSuffixClass }}">
       {% for error in options.errors %}
         <p>{{ error }}</p>
       {% endfor %}
@@ -192,18 +192,18 @@
 
 <div class="{{ options.mainClass }} {{ options.classes }}">
   {% if options.label %}
-    <h3 class="{{ options.mainClass }}__{{ options.labelSuffixClass }}">{{ options.label }}</h3>
+    <h3 class="{{ options.mainClass }}{{ options.labelSuffixClass }}">{{ options.label }}</h3>
   {% endif %}
 
-  <div class="{{ options.mainClass }}__{{ options.itemsSuffixClass }}">
+  <div class="{{ options.mainClass }}{{ options.itemsSuffixClass }}">
     {% for item in options.items %}
 
-      <div class="{{ options.mainClass }}__{{ options.itemSuffixClass }}">
+      <div class="{{ options.mainClass }}{{ options.itemSuffixClass }}">
         <input
           name="{{ options.name }}"
           id="{{ item.value }}"
           type="{{ options.type }}"
-          class="{{ options.mainClass }}__{{ options.itemInputSuffixClass }}"
+          class="{{ options.mainClass }}{{ options.itemInputSuffixClass }}"
           value="{{ item.value }}"
           {%- if required ?? false -%}
             required
@@ -212,7 +212,7 @@
             checked
           {%- endif -%}
         >
-        <label class="{{ options.mainClass }}__{{ options.itemLabelSuffixClass }}" for="{{ item.value }}">
+        <label class="{{ options.mainClass }}{{ options.itemLabelSuffixClass }}" for="{{ item.value }}">
           {% if options.unselectedSvg ?? null and options.selectedSvg ?? null %}
             <span class="{{ options.mainClass }}__item-label-unselected">{{ options.unselectedSvg | raw }}</span>
             <span class="{{ options.mainClass }}__item-label-selected">{{ options.selectedSvg | raw }}</span>
@@ -259,6 +259,10 @@
 
 {% set defaults = {
   mainClass: 'btn',
+  textSuffixClass: '__text',
+  bgSuffixClass: '__bg',
+  graphicSuffixClass: '__graphic',
+  withGraphicModifierClass: '--with-graphic',
   classes: '',
   type: null,
   href: null,
@@ -276,7 +280,7 @@
   {% set el = 'a' %}
 {% endif %}
 
-<div class="{{ options.mainClass }} {{ options.classes ?? '' }} {% if options.graphic %}{{ options.mainClass }}--with-graphic{% endif %}">
+<div class="{{ options.mainClass }} {{ options.classes ?? '' }} {% if options.graphic %}{{ options.mainClass }}{{ options.withGraphicModifierClass }}{% endif %}">
   <{{ el }}
     class="{{ options.mainClass }}__inner"
     {% if options.tabindex %}tabindex="{{ options.tabindex }}"{% endif %}
@@ -287,13 +291,13 @@
       rel="noopener noreferrer"
     {% endif %}
   >
-    <span class="{{ options.mainClass }}__text">{{ options.text }}</span>
+    <span class="{{ options.mainClass }}{{ options.textSuffixClass }}">{{ options.text }}</span>
   </{{ el }}>
 
-  <div class="{{ options.mainClass }}__bg"></div>
+  <div class="{{ options.mainClass }}{{ options.bgSuffixClass }}"></div>
 
   {% if options.graphic %}
-    <div class="{{ options.mainClass }}__graphic">
+    <div class="{{ options.mainClass }}{{ options.graphicSuffixClass }}">
       {{ options.graphic }}
     </div>
   {% endif %}

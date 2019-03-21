@@ -28,3 +28,7 @@ The format is based on [Keep a Changelog](http://keepachangelog.com/) and this p
 ### Added
 - `btn` can now be used to create either an `a` or `button/submit` element that have identical HTML structure and can be styled identically.
 
+## 1.3.0 - 2019-03-21
+### Changed
+- Clean up suffixes for various components and make them more editable.
+
