@@ -229,6 +229,80 @@
 
 
 {# ------------------------------------------------------------------ #}
+{# Button
+{# ------------------------------------------------------------------ #}
+{#
+  {{ btn({
+    mainClass: 'btn',
+    classes: '',
+    text: 'Submit',
+    type: 'button'
+  }) }}
+
+  {% set graphic %}
+    {{ source('/example.svg') }}
+  {% endset %}
+
+  {{ btn({
+    mainClass: 'btn',
+    classes: '',
+    text: 'Visit Our Website',
+    href: 'https://craftcms.com',
+    target: '_blank',
+    graphic: graphic
+  }) }}
+
+  Renders either an `a` or `button`.
+#}
+
+{%- macro btn(options = {}) -%}
+
+{% set defaults = {
+  mainClass: 'btn',
+  classes: '',
+  type: null,
+  href: null,
+  graphic: null,
+  tabindex: null
+} %}
+
+{% set options = defaults | merge(options) %}
+
+{# Set default element #}
+{% set el = 'button' %}
+
+{# Use a link if an href is set #}
+{% if options.href %}
+  {% set el = 'a' %}
+{% endif %}
+
+<div class="{{ options.mainClass }} {{ options.classes ?? '' }} {% if options.graphic %}{{ options.mainClass }}--with-graphic{% endif %}">
+  <{{ el }}
+    class="{{ options.mainClass }}__inner"
+    {% if options.tabindex %}tabindex="{{ options.tabindex }}"{% endif %}
+    {% if options.href %}href="{{ options.href }}"{% endif %}
+    {% if options.type and not options.href %}type="{{ options.type }}"{% endif %}
+    {% if options.href and options.target == '_blank' %}
+      target="_blank"
+      rel="noopener noreferrer"
+    {% endif %}
+  >
+    <span class="{{ options.mainClass }}__text">{{ options.text }}</span>
+  </{{ el }}>
+
+  <div class="{{ options.mainClass }}__bg"></div>
+
+  {% if options.graphic %}
+    <div class="{{ options.mainClass }}__graphic">
+      {{ options.graphic }}
+    </div>
+  {% endif %}
+</div>
+
+{%- endmacro %}
+
+
+{# ------------------------------------------------------------------ #}
 {# Validate Classes
 {# ------------------------------------------------------------------ #}
 {#

@@ -70,6 +70,7 @@ class BitsTwigExtension extends \Twig_Extension
             new \Twig_SimpleFunction('text', [$this, 'renderText']),
             new \Twig_SimpleFunction('textarea', [$this, 'renderTextarea']),
             new \Twig_SimpleFunction('selectable', [$this, 'renderSelectable']),
+            new \Twig_SimpleFunction('btn', [$this, 'renderBtn']),
             new \Twig_SimpleFunction('validateClasses', [$this, 'renderValidateClasses']),
         ];
     }
@@ -114,6 +115,20 @@ class BitsTwigExtension extends \Twig_Extension
     public function renderSelectable($options = [])
     {
         return $this->renderTemplate('selectable', [$options]);
+    }
+
+    /**
+     * Renders either an `a` or `button` element with identical structure.
+     * 
+     * See `/templates/macros.twig` for options.
+     *
+     * @param    array   $options
+     *
+     * @return   string
+     */
+    public function renderBtn($options = [])
+    {
+        return $this->renderTemplate('btn', [$options]);
     }
 
     /**

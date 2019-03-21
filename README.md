@@ -99,6 +99,34 @@ A `selectable` renders either a `checkbox` or `radio` element, depending on the 
 }) }}
 ```
 
+#### Button
+
+A `btn` allows you to create either an `a` or `button` element that use the same underlying strucuture and can be styled identically.
+
+```twig
+{# A `button` with a type of `button` #}
+{{ btn({
+  mainClass: 'btn',
+  classes: '',
+  text: 'Submit',
+  type: 'button'
+}) }}
+
+{# An `a` that opens in a new window and includes an SVG graphic #}
+{% set graphic %}
+  {{ source('/example.svg') }}
+{% endset %}
+
+{{ btn({
+  mainClass: 'btn',
+  classes: '',
+  text: 'Visit Our Website',
+  href: 'https://craftcms.com',
+  target: '_blank',
+  graphic: graphic
+}) }}
+```
+
 ## Utilies
 
 ### Validate Classes
