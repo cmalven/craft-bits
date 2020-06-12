@@ -82,7 +82,7 @@ A `selectable` renders either a `checkbox` or `radio` element, depending on the 
   label: 'Options',
   type: 'checkbox|radio',
   unselectedSvg: '<svg … />',
-  selectedSvg: '<svg … />'',
+  selectedSvg: '<svg … />',
   items: [
     {
       label: 'Burgers',
