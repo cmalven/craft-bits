@@ -291,7 +291,7 @@
       target="_blank"
       rel="noopener noreferrer"
     {% endif %}
-    {% if options.attributes %}{{ attributes | raw }}{% endif %}
+    {% if options.attributes %}{{ options.attributes | raw }}{% endif %}
   >
     <span class="{{ options.mainClass }}{{ options.textSuffixClass }}"><span>{{ options.text }}</span></span>
   </{{ el }}>
